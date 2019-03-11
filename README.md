@@ -50,7 +50,7 @@ $ PROMETHEUS_API_URL=http://prometheus.internal:9090 \
         delete-batch
 ```
 
-### LALBELS Query
+### LABELS Query
 
 * List Label - metric name
 
