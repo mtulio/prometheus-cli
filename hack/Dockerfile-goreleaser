@@ -1,0 +1,6 @@
+FROM alpine:latest
+RUN apk --no-cache add ca-certificates
+RUN apk add curl
+COPY prometheus-cli /prometheus-cli
+ENTRYPOINT ["/prometheus-cli"]
+CMD [ "-h" ]

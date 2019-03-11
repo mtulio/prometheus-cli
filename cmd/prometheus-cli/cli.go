@@ -13,7 +13,11 @@ func getEnvURL() string {
 }
 
 func getEnvMatch() string {
-	return os.Getenv("PROMETHEUS_API_MATCH")
+	return os.Getenv("PROMETHEUS_MATCH")
+}
+
+func getEnvQuery() string {
+	return os.Getenv("PROMETHEUS_QUERY")
 }
 
 func usage() {
@@ -22,11 +26,13 @@ func usage() {
 	// fmt.Fprintf(os.Stderr, "\t%s [flags] query_range <expression> <end_timestamp> <range_seconds> [<step_seconds>]\n", os.Args[0])
 	// fmt.Fprintf(os.Stderr, "\t%s [flags] metrics\n", os.Args[0])
 	fmt.Fprintf(os.Stderr, "\t%s [flags] series\n", os.Args[0])
+	fmt.Fprintf(os.Stderr, "\t%s [flags] delete\n", os.Args[0])
+	fmt.Fprintf(os.Stderr, "\t%s [flags] label\n", os.Args[0])
 	fmt.Printf("\nFlags:\n")
 	flag.PrintDefaults()
 }
 
-func validadeArgsTimeRange() bool {
+func validadeArgsTimeStart() bool {
 	if *cli.tStartStr == "" {
 		emsg := fmt.Errorf("Missing -start")
 		fmt.Println(emsg)
@@ -40,7 +46,10 @@ func validadeArgsTimeRange() bool {
 		}
 		cli.tStartTime = &t
 	}
+	return true
+}
 
+func validadeArgsTimeEnd() bool {
 	if *cli.tEndStr == "" {
 		emsg := fmt.Errorf("Missing -end")
 		fmt.Println(emsg)
@@ -53,6 +62,18 @@ func validadeArgsTimeRange() bool {
 			return false
 		}
 		cli.tEndTime = &t
+	}
+	return true
+}
+
+func validadeArgsTimeRange() bool {
+
+	if ok := validadeArgsTimeStart(); !ok {
+		return false
+	}
+
+	if ok := validadeArgsTimeEnd(); !ok {
+		return false
 	}
 
 	return true
@@ -69,6 +90,17 @@ func validateArgsMatch() bool {
 	cli.matchs = &s
 
 	if ok := validadeArgsTimeRange(); !ok {
+		return false
+	}
+
+	return true
+}
+
+func validateArgsQuery() bool {
+
+	if *cli.query == "" {
+		emsg := fmt.Errorf("Missing arg -query or PROMETHEUS_QUERY env")
+		fmt.Println(emsg)
 		return false
 	}
 
