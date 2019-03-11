@@ -21,15 +21,6 @@ const (
 	totalSecHour  = 60 * 60
 )
 
-func usage() {
-	fmt.Fprintf(os.Stderr, "Usage:\n")
-	fmt.Fprintf(os.Stderr, "\t%s [flags] query <expression>\n", os.Args[0])
-	fmt.Fprintf(os.Stderr, "\t%s [flags] query_range <expression> <end_timestamp> <range_seconds> [<step_seconds>]\n", os.Args[0])
-	fmt.Fprintf(os.Stderr, "\t%s [flags] metrics\n", os.Args[0])
-	fmt.Printf("\nFlags:\n")
-	flag.PrintDefaults()
-}
-
 func die(format string, args ...interface{}) {
 	fmt.Fprintf(os.Stderr, format, args...)
 	fmt.Fprintln(os.Stderr, "")
@@ -37,11 +28,10 @@ func die(format string, args ...interface{}) {
 }
 
 func init() {
-
-	cli.promURL = flag.String("prometheus.url", getEnvURL(), "Prometheus URL")
-	cli.query = flag.String("query", "", "Prometheus Query.")
-	cli.tStartStr = flag.String("start", "", "Prometheus Query Start.")
-	cli.tEndStr = flag.String("end", "", "Prometheus Query End.")
+	cli.promURL = flag.String("server", getEnvURL(), "Prometheus URL")
+	cli.match = flag.String("match", getEnvMatch(), "Prometheus Match sepparated by comma.")
+	cli.tStartStr = flag.String("time.start", "", "Prometheus Query Start.")
+	cli.tEndStr = flag.String("time.end", "", "Prometheus Query End.")
 	cli.verbose = flag.Bool("verbose", false, "Verbose the result.")
 	flag.Usage = usage
 	flag.Parse()
