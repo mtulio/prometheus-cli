@@ -10,8 +10,8 @@ type Query struct {
 
 type CliOptions struct {
 	promURL    *string
-	query      *string
-	queryList  *[]string
+	match      *string
+	matchs     *[]string
 	tStartStr  *string
 	tStartTime *time.Time
 	tEndStr    *string

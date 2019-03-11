@@ -5,6 +5,8 @@ Prometheus Command Line Interface to interact with [Prometheus API](https://prom
 
 ## Series
 
+[Series Documentation reference](https://prometheus.io/docs/prometheus/latest/querying/api/#querying-metadata)
+
 * Show all series for an query
 
 ```bash

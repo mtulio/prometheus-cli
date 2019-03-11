@@ -10,14 +10,14 @@ import (
 func GetSeries() {
 	// defer die("GetSeries()", nil)
 
-	if !validateArgsQuery() {
+	if !validateArgsMatch() {
 		fmt.Println("Invalid query arguments")
 		usage()
 		os.Exit(1)
 	}
 
 	q := Query{
-		matches: *cli.queryList,
+		matches: *cli.matchs,
 		tStart:  *cli.tStartTime,
 		tEnd:    *cli.tEndTime,
 	}
