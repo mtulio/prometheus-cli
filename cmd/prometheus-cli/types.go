@@ -4,12 +4,14 @@ import "time"
 
 type Query struct {
 	matches []string
+	query   string
 	tStart  time.Time
 	tEnd    time.Time
 }
 
 type CliOptions struct {
 	promURL    *string
+	query      *string
 	match      *string
 	matchs     *[]string
 	tStartStr  *string

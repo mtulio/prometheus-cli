@@ -29,6 +29,7 @@ func die(format string, args ...interface{}) {
 
 func init() {
 	cli.promURL = flag.String("server", getEnvURL(), "Prometheus URL")
+	cli.query = flag.String("query", getEnvQuery(), "Prometheus Query string")
 	cli.match = flag.String("match", getEnvMatch(), "Prometheus Match sepparated by comma.")
 	cli.tStartStr = flag.String("time.start", "", "Prometheus Query Start.")
 	cli.tEndStr = flag.String("time.end", "", "Prometheus Query End.")
@@ -63,6 +64,10 @@ func main() {
 		getSeries()
 	case "delete":
 		deleteSeries()
+	case "label":
+		getLabel()
+	case "delete-metrics":
+		deleteSeriesByLabel()
 	default:
 		die("Unknown command '%s'", flag.Arg(0))
 	}
