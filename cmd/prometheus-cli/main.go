@@ -33,6 +33,7 @@ func init() {
 	cli.tStartStr = flag.String("time.start", "", "Prometheus Query Start.")
 	cli.tEndStr = flag.String("time.end", "", "Prometheus Query End.")
 	cli.verbose = flag.Bool("verbose", false, "Verbose the result.")
+	cli.force = flag.Bool("force", false, "Force commad. For delete, remove from disk (Clean Tombstones).")
 	flag.Usage = usage
 	flag.Parse()
 }
@@ -59,7 +60,9 @@ func main() {
 
 	switch flag.Arg(0) {
 	case "series":
-		GetSeries()
+		getSeries()
+	case "delete":
+		deleteSeries()
 	default:
 		die("Unknown command '%s'", flag.Arg(0))
 	}
