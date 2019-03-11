@@ -17,4 +17,5 @@ type CliOptions struct {
 	tEndStr    *string
 	tEndTime   *time.Time
 	verbose    *bool
+	force      *bool
 }
