@@ -3,9 +3,11 @@
 Prometheus Command Line Interface to interact with [Prometheus API](https://prometheus.io/docs/prometheus/latest/querying/api/).
 
 
-## Series
+## USAGE
 
-[Series Documentation reference](https://prometheus.io/docs/prometheus/latest/querying/api/#querying-metadata)
+[Series Documentation reference](https://prometheus.io/docs/prometheus/latest/querying/api/#querying-metadata) to understand the API usage.
+
+### SERIES Query
 
 * Show all series for an query
 
@@ -18,6 +20,8 @@ $ PROMETHEUS_API_URL=http://prometheus.internal:9090 \
         -verbose \
         series
 ```
+
+### SERIES Removal
 
 * Remove series
 
@@ -34,7 +38,7 @@ $ PROMETHEUS_API_URL=http://prometheus.internal:9090 \
 
 * Delete all series on time range
 
-> WARNING: it will lookup by `__name` and delete all series from an given range
+> WARNING: it will lookup by `__name__` and delete all series from an given range
 
 ```bash
 $ PROMETHEUS_API_URL=http://prometheus.internal:9090 \
@@ -42,17 +46,19 @@ $ PROMETHEUS_API_URL=http://prometheus.internal:9090 \
         -time.start="2018-09-02T00:00:00.000Z" \
         -time.end="2018-09-02T23:59:59.999Z" \
         -verbose \
-        -query='{__name__=~"[a-zA-Z].*"}' \
+        -query='{__name__}' \
         delete-batch
 ```
+
+### LALBELS Query
 
 * List Label - metric name
 
 ```bash
 $ PROMETHEUS_API_URL=http://prometheus.internal:9090 \
     ./bin/prometheus-cli \
-        -query=__name__ \
         -verbose \
+        -query=__name__ \
         label
 ```
 
@@ -66,4 +72,7 @@ $ PROMETHEUS_API_URL=http://prometheus.internal:9090 \
         label
 ```
 
-{__name__=~"[a-zA-Z].*"}
+
+## CONTRIBUTING
+
+Feel free to contributing opening an Issue or an PR. =)
