@@ -23,7 +23,9 @@ $ PROMETHEUS_API_URL=http://prometheus.internal:9090 \
 
 ### SERIES Removal
 
-* Remove series
+* Delete specific series.
+
+> Eg. deleting series `go_info`.
 
 ```bash
 $ PROMETHEUS_API_URL=http://prometheus.internal:9090 \
@@ -36,9 +38,11 @@ $ PROMETHEUS_API_URL=http://prometheus.internal:9090 \
         delete
 ```
 
-* Delete all series on time range
+* Delete all series on time range.
 
-> WARNING: it will lookup by `__name__` and delete all series from an given range
+> E.g. lookup by `__name__` ("all metrics") series, deletem them on specific `start` and `end`.
+
+> WARNING: We don't responsible for the data loss.
 
 ```bash
 $ PROMETHEUS_API_URL=http://prometheus.internal:9090 \
